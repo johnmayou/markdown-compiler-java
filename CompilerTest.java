@@ -94,11 +94,6 @@ public class CompilerTest {
     try (DirectoryStream<Path> files = Files.newDirectoryStream(Paths.get("testdata"), "*.text")) {
       for (Path filepath : files) {
         String testName = "golden_" + filepath.getFileName();
-        if (!(testName.contains("list.text"))) {
-          System.out.println("skipping: " + testName);
-          continue;
-        }
-        System.out.println("running: " + testName);
         try {
           String md = Files.readString(filepath);
           String html = prettifyHtml(new Compiler().compile(md));
