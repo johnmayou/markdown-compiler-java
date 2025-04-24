@@ -228,9 +228,6 @@ class Lexer {
       spaces += 1;
     }
 
-    System.out.println("spaces: " + spaces);
-    System.out.println("this.md.charAt(spaces): " + this.md.charAt(spaces));
-
     switch (this.md.charAt(spaces)) {
       // un-ordered
       case '*':
@@ -517,28 +514,20 @@ class Parser {
   public ASTRootNode parse() {
     while (this.tksStart < this.tks.size()) {
       if (peek(Lexer.HeaderToken.class)) {
-        // System.out.println("parse header");
         parseHeader();
       } else if (peek(Lexer.CodeBlockToken.class)) {
-        // System.out.println("parse code block");
         parseCodeBlock();
       } else if (peek(Lexer.BlockQuoteToken.class)) {
-        // System.out.println("parse block quote");
         parseBlockQuote();
       } else if (peek(Lexer.HorizontalRuleToken.class)) {
-        // System.out.println("parse horizontal rule");
         parseHorizontalRule();
       } else if (peek(Lexer.ListItemToken.class)) {
-        // System.out.println("parse list");
         parseList();
       } else if (peek(Lexer.ImageToken.class)) {
-        // System.out.println("parse image");
         parseImage();
       } else if (peekAny(Lexer.TextToken.class, Lexer.CodeInlineToken.class, Lexer.LinkToken.class)) {
-        // System.out.println("parse paragraph");
         parseParagraph();
       } else if (peek(Lexer.NewLineToken.class)) {
-        // System.out.println("parse new line");
         consume(Lexer.NewLineToken.class);
       } else {
         throw new RuntimeException("Unable to parse tokens:\n" + this.tks);
@@ -630,6 +619,7 @@ class Parser {
         } else {
           throw new RuntimeException("Unexpected top node last child:" + topNodeLastChild);
         }
+        listStack.add(new ListStackItem(node, currIndent));
       } else if (currIndent < lastIndent) { // lost indentation
         // pop from stack until we find current level
         while (listStack.peek().indent() > currIndent) {
@@ -762,8 +752,6 @@ class CodeGen {
   }
 
   public String gen() {
-    System.out.println(this.ast);
-
     for (Parser.ASTNode node : this.ast.children()) {
       if (node instanceof Parser.ASTHeaderNode) {
         this.html.append(genHeader((Parser.ASTHeaderNode) node));
