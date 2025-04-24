@@ -179,7 +179,7 @@ class Lexer {
     return true;
   }
 
-  private static final Pattern BLOCKQUOTE_PATTERN = Pattern.compile("\\A(>(?: >)* ?)");
+  private static final Pattern BLOCKQUOTE_PATTERN = Pattern.compile("\\A(>(?: >)* ?).*$", Pattern.MULTILINE);
 
   private boolean tryTokenizeBlockQuote() {
     Matcher matcher = BLOCKQUOTE_PATTERN.matcher(this.md);
@@ -312,6 +312,11 @@ class Lexer {
 
   private void tokenizeCurrentLine() {
     if (this.md.isEmpty()) {
+      return;
+    }
+    if (this.md.charAt(0) == '\n') { // already at the end of current line
+      this.tks.add(new NewLineToken());
+      this.md = this.md.substring(1);
       return;
     }
 
