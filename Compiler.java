@@ -508,9 +508,6 @@ class Parser {
   }
 
   public Parser(List<Lexer.Token> tks) {
-    for (Lexer.Token token : tks) {
-      System.out.println(token);
-    }
     this.tks = tks;
     this.tksStart = 0;
     this.root = new ASTRootNode(new ArrayList<>());
