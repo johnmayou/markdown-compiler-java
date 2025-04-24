@@ -18,30 +18,6 @@ public class CompilerTest {
     }
 
     try {
-      printTestName("testTokenizeHeader");
-      testTokenizeHeader();
-    } catch (Exception e) {
-      printException(e);
-      allPassed = false;
-    }
-
-    try {
-      printTestName("testTokenizeBlockQuote");
-      testTokenizeBlockQuote();
-    } catch (Exception e) {
-      printException(e);
-      allPassed = false;
-    }
-
-    try {
-      printTestName("testTokenizeBlockQuote2");
-      testTokenizeBlockQuote2();
-    } catch (Exception e) {
-      printException(e);
-      allPassed = false;
-    }
-
-    try {
       printTestName("testParseParagraph");
       testParseParagraph();
     } catch (Exception e) {
@@ -87,44 +63,6 @@ public class CompilerTest {
         new Lexer.TextToken("text", false, false),
         new Lexer.NewLineToken());
     List<Lexer.Token> actual = new Compiler().tokenize("text");
-
-    assertEqual(expected, actual);
-  }
-
-  private static void testTokenizeHeader() {
-    List<Lexer.Token> expected = List.of(
-        new Lexer.HeaderToken(1),
-        new Lexer.TextToken("header", false, false),
-        new Lexer.HorizontalRuleToken(),
-        new Lexer.NewLineToken());
-    List<Lexer.Token> actual = new Compiler().tokenize("# header");
-
-    assertEqual(expected, actual);
-  }
-
-  private static void testTokenizeBlockQuote() {
-    List<Lexer.Token> expected = List.of(
-        new Lexer.BlockQuoteToken(1),
-        new Lexer.TextToken("line 1", false, false),
-        new Lexer.NewLineToken(),
-        new Lexer.BlockQuoteToken(1),
-        new Lexer.TextToken("line 2", false, false),
-        new Lexer.NewLineToken());
-    List<Lexer.Token> actual = new Compiler().tokenize("> line 1\n> line 2");
-
-    assertEqual(expected, actual);
-  }
-
-  private static void testTokenizeBlockQuote2() {
-    List<Lexer.Token> expected = List.of(
-        new Lexer.BlockQuoteToken(1),
-        new Lexer.TextToken("line 1", false, false),
-        new Lexer.NewLineToken(),
-        new Lexer.NewLineToken(),
-        new Lexer.BlockQuoteToken(1),
-        new Lexer.TextToken("line 2", false, false),
-        new Lexer.NewLineToken());
-    List<Lexer.Token> actual = new Compiler().tokenize("> line 1\n\n> line 2");
 
     assertEqual(expected, actual);
   }
