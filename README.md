@@ -44,7 +44,7 @@ _(If needed: `chmod +x test.sh` to make the script executable.)_
 
 ## Tech
 
-**Java 21**, **Spring Boot**, **JUnit**
+**Java 21**, **Spring Boot**, **JUnit**, **Gradle**
 
 ## License
 
