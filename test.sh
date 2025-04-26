@@ -1,4 +1,4 @@
 set -e
 
-javac *.java
-java CompilerTest
+cd compiler
+./gradlew test --info
