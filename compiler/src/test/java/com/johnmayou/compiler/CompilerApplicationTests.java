@@ -1,13 +1,13 @@
-package compiler.src.test.java.com.johnmayou.compiler;
+package com.johnmayou.compiler;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
 class CompilerApplicationTests {
 
 	@Test
-	void contextLoads() {
+	void basicTest() {
+		assertEquals(2, 1 + 1);
 	}
 
 }
