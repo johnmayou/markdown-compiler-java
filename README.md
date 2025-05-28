@@ -12,8 +12,6 @@ The compiler follows a classic pipeline:
 
 ## Example
 
-![demo](demo.png)
-
 ## Supported Syntax
 
 - Headers (`#`, `##`, etc.)
